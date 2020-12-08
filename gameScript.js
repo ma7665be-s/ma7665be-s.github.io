@@ -8,8 +8,8 @@ window.addEventListener("DOMContentLoaded", function(){
 
   var createScene = function(){
     var scene = new BABYLON.Scene(engine);
-    scene.clearColor = new BABYLON.Color3.White();
-    var camera = new BABYLON.UniversalCamera("camera", new BABYLON.Vector3(0,20,-20),scene);
+    scene.clearColor = new BABYLON.Color3(61/255, 59/255, 61/255);
+    var camera = new BABYLON.ArcRotateCamera("Camera", pi/2, pi/2, 5, new BABYLON.Vector3(0, 0, 0), scene);
     camera.setTarget(BABYLON.Vector3.Zero());
     camera.attachControl(canvas, true);
     camera.keysUp.push(87);
@@ -28,27 +28,24 @@ window.addEventListener("DOMContentLoaded", function(){
 
 
     //var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 10, -5), scene);
-    var light = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(10, 10, 10), new BABYLON.Vector3(-1, -1, -1), pi/3, 1, scene);
+    var light = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(0, 10, 10), new BABYLON.Vector3(0, -1, -1), pi/3, 1, scene);
 
     BABYLON.SceneLoader.ImportMesh("","/", "louvre-demosthenes-photoscan.obj", scene, function (newMeshes) {
     // do something with the scene
 
-
     var mesh = newMeshes[0];
     mesh.material = shaderMaterial;
-
-    console.log(mesh.material);
-
-
+    mesh.rotation.z += pi/2;
+    mesh.position.z -= 5;
     });
 
     light.specular = BABYLON.Color3.Red();
 
-    var box = BABYLON.MeshBuilder.CreateBox("box",{size:4.0},scene);
+    //var box = BABYLON.MeshBuilder.CreateBox("box",{size:4.0},scene);
     var materialBox = new BABYLON.StandardMaterial("materialBox", scene);
     materialBox.specularColor = BABYLON.Color3.Red();
     materialBox.diffuseColor = BABYLON.Color3.Yellow();
-    box.material = shaderMaterial;
+    //box.material = shaderMaterial;
 
 
     //camera.parent = player;
