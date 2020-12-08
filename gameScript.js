@@ -30,7 +30,7 @@ window.addEventListener("DOMContentLoaded", function(){
     //var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 10, -5), scene);
     var light = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(10, 10, 10), new BABYLON.Vector3(-1, -1, -1), pi/3, 1, scene);
 
-    BABYLON.SceneLoader.ImportMesh("","https://models.babylonjs.com/", "Chair/Chair.obj", scene, function (newMeshes) {
+    BABYLON.SceneLoader.ImportMesh("","/.", "louvre-demosthenes-photoscan.obj", scene, function (newMeshes) {
     // do something with the scene
 
 
