@@ -4,10 +4,12 @@ const pi = BABYLON.Scalar.TwoPi/2;
 window.addEventListener("DOMContentLoaded", function(){
   var canvas = document.getElementById("canvas");
   var engine = new BABYLON.Engine(canvas, true);
+  var canvasInvRes = new BABYLON.Vector2(1/canvas.width,1/canvas.height);
 
 
   var createScene = function(){
     var scene = new BABYLON.Scene(engine);
+
     scene.clearColor = new BABYLON.Color3(61/255, 59/255, 61/255);
     var camera = new BABYLON.ArcRotateCamera("Camera", pi/2, pi/2, 5, new BABYLON.Vector3(0, 0, 0), scene);
     camera.setTarget(BABYLON.Vector3.Zero());
@@ -16,6 +18,8 @@ window.addEventListener("DOMContentLoaded", function(){
     camera.keysDown.push(83);
     camera.keysLeft.push(65);
     camera.keysRight.push(68);
+    var depthrend = scene.enableDepthRenderer();
+    var georend = scene.enableGeometryBufferRenderer();
 
     var shaderMaterial = new BABYLON.ShaderMaterial("shader", scene, {
         vertexElement: "vertexShaderCode",
@@ -26,15 +30,15 @@ window.addEventListener("DOMContentLoaded", function(){
         uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
     });
 
-
     //var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 10, -5), scene);
-    var light = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(0, 10, 10), new BABYLON.Vector3(0, -1, -1), pi/3, 1, scene);
-
+    var light = new BABYLON.SpotLight("spotLight", new BABYLON.Vector3(1, 5, 1), new BABYLON.Vector3(-1, -5, -1), pi/3, 1, scene);
     BABYLON.SceneLoader.ImportMesh("","/", "louvre-demosthenes-photoscan.obj", scene, function (newMeshes) {
     // do something with the scene
 
     var mesh = newMeshes[0];
+
     mesh.material = shaderMaterial;
+
     mesh.rotation.z += pi/2;
     mesh.position.z -= 5;
     });
@@ -56,6 +60,10 @@ window.addEventListener("DOMContentLoaded", function(){
       shaderMaterial.setVector3("lightposition", light.position);
       shaderMaterial.setVector3("lightdirection", light.direction);
       shaderMaterial.setVector3("cameraposition", camera.position);
+      shaderMaterial.setVector2("invRes", canvasInvRes);
+      shaderMaterial.setTexture("depthmap", depthrend.getDepthMap());
+      shaderMaterial.setTexture("normalmap", georend.getGBuffer().textures[1]);
+
     });
 
     return scene;
