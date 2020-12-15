@@ -19,10 +19,8 @@ var createScene = function() {
   var depthRend = scene.enableDepthRenderer();
   var geoRend = scene.enableGeometryBufferRenderer();
 
-  var shaderMaterial = new BABYLON.ShaderMaterial("shader", scene, {
-    vertexElement: "vertexShaderCode",
-    fragmentElement: "fragmentShaderCode",
-  }, {
+  var shaderMaterial = new BABYLON.ShaderMaterial("shader", scene, "./shader",
+  {
     attributes: ["position", "normal", "uv"],
     uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
   });
