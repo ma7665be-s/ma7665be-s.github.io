@@ -12,10 +12,10 @@ in vec3 vd;
 in vec2 tex;
 
 float shininess = 1.0;
-vec3 ambient = vec3(0.05,0.05,0.05);
-vec3 mainDiffuse = vec3(0.6,0.0,0.0);
-vec3 secondDiffuse = vec3(0.1,0.0,0.0);
-vec3 specular = vec3(0.02,0.02,0.02);
+vec3 ambient = vec3(0.01,0.01,0.01);
+vec3 mainDiffuse = vec3(0.55,0.0,0.0);
+vec3 secondDiffuse = vec3(0.05,0.0,0.0);
+vec3 specular = vec3(0.03,0.03,0.03);
 vec3 shadow = vec3(0.0,0.0,0.0);
 vec3 outline = vec3(0.9,0.0,0.0);
 float frequency = 200.0;
