@@ -82,5 +82,5 @@ void main(void) {
     dif = outline;
   }
 
-  gl_FragColor = vec4(dif, 1.0);
+  gl_FragColor = vec4(amb + dif + spe, 1.0);
 }
